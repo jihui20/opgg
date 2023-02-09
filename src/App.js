@@ -1,5 +1,11 @@
-function App() {
-  return <p>메인</p>;
-}
+import Router from './common/RouterConfig';
+
+const App = () => {
+  return (
+    <>
+      <Router />
+    </>
+  );
+};
 
 export default App;
