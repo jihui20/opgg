@@ -4,11 +4,9 @@ import Main from '../pages/Main';
 
 const RouterConfig = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Main />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/summoner/*" element={<Main />} />
+    </Routes>
   );
 };
 

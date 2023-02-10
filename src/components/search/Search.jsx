@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { currentSearchState } from 'store/currentSearch';
@@ -8,6 +9,7 @@ import SearchList from './SearchList';
 import RecentlySearchList from './RecentlySearchList';
 
 const Search = () => {
+  const navigate = useNavigate();
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState();
@@ -50,6 +52,10 @@ const Search = () => {
 
     setIsSearchState(trimValue);
     setIsRecentlySearchList([...isRecentlySearchList, trimValue]);
+
+    navigate(`/summoner/${trimValue}`, {
+      state: trimValue,
+    });
   };
 
   useEffect(() => {

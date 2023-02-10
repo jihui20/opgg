@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 import { recentlySearchState } from 'store/recentlySearch';
 
 const RecentlySearchList = () => {
@@ -10,9 +10,9 @@ const RecentlySearchList = () => {
       <p>최근 검색어</p>
       <ul>
         {isRecentlySearchList?.length > 0 ? (
-          isRecentlySearchList.map((item) => {
+          isRecentlySearchList.map((item, index) => {
             return (
-              <li key={item}>
+              <li key={`${item}-${index}`}>
                 <span>{item}</span>
               </li>
             );
