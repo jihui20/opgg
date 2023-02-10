@@ -28,7 +28,6 @@ const SearchListLayout = styled.div`
   top: 35px;
   left: 0;
   width: 100%;
-  padding: 10px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: rgb(0 0 0 / 30%) 0px 8px 12px 0px;
@@ -44,6 +43,12 @@ const SearchListLayout = styled.div`
     background-repeat: no-repeat;
     border-radius: 50%;
     vertical-align: middle;
+  }
+
+  ul {
+    li {
+      padding: 8px 16px;
+    }
   }
 
   .user-info {

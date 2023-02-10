@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useResetRecoilState } from 'recoil';
-import axios from 'axios';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { searchState } from '../../store/search';
+import { currentSearchState } from 'store/currentSearch';
+import { recentlySearchState } from 'store/recentlySearch';
+import fetchSummoner from 'apis/search';
 import SearchList from './SearchList';
+import RecentlySearchList from './RecentlySearchList';
 
 const Search = () => {
+  const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState();
-  // const [isSearchState, setIsSearchState] = useResetRecoilState(searchState);
+  const setIsSearchState = useSetRecoilState(currentSearchState);
+  const [isRecentlySearchList, setIsRecentlySearchList] =
+    useRecoilState(recentlySearchState);
 
   const handleSearchValue = (e) => {
     let { value } = e.target;
@@ -43,21 +48,25 @@ const Search = () => {
       return;
     }
 
-    await axios
-      .get(`https://codingtest.op.gg/api/summoner/${trimValue}`)
-      .then((response) => {
-        const { summoner } = response.data;
-
-        setSearchResult(summoner);
-        console.log(summoner);
-      })
-      .catch(() => {
-        // alert(config.MESSAGE['common-error']);
-      });
+    setIsSearchState(trimValue);
+    setIsRecentlySearchList([...isRecentlySearchList, trimValue]);
   };
 
   useEffect(() => {
-    if (searchValue.length > 0) searchButtonHandler();
+    if (searchValue.length > 0) {
+      async function getSummonerData() {
+        const trimValue = searchValue.trim();
+
+        if (!searchValueValidation()) {
+          return;
+        }
+
+        const result = await fetchSummoner(trimValue);
+
+        setSearchResult(result);
+      }
+      getSummonerData();
+    }
   }, [searchValue]);
 
   return (
@@ -68,14 +77,19 @@ const Search = () => {
         value={searchValue}
         onChange={handleSearchValue}
         onKeyPress={handleCheckEnter}
+        onFocus={() => setIsInputFocus(true)}
+        onBlur={() => setIsInputFocus(false)}
       />
       <Button type="button" onClick={searchButtonHandler}>
         <span>.GG</span>
       </Button>
 
-      {searchValue?.length > 0 && searchResult && (
-        <SearchList value={searchResult} />
-      )}
+      {isInputFocus &&
+        (searchValue?.length > 0 && searchResult ? (
+          <SearchList value={searchResult} />
+        ) : (
+          <RecentlySearchList />
+        ))}
     </SearchLayout>
   );
 };
