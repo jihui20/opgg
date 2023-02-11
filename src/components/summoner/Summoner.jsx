@@ -1,35 +1,46 @@
 import styled from 'styled-components';
+import InnerLayout from 'components/InnerLayout';
 import PreviousTiers from './PreviousTiers';
 
 const Summoner = ({ summonerData }) => {
   const { previousTiers } = summonerData;
 
   return (
-    <>
-      <PreviousTiers previousTiers={previousTiers} />
-      <SummonerBox>
-        <SummonerThumb>
-          <i
-            className="thumb"
-            style={{ backgroundImage: `url(${summonerData.profileImageUrl})` }}
-          ></i>
-          <p className="blind">{summonerData.name}</p>
-        </SummonerThumb>
-        <SummonerInfo>
-          <p className="summoner-name">{summonerData.name}</p>
-          {summonerData?.ladderRank && (
-            <p>
-              레더 랭킹 <span>{summonerData?.ladderRank?.rank}</span>위 (상위
-              {summonerData?.ladderRank?.rankPercentOfTop}%)
-            </p>
-          )}
-        </SummonerInfo>
-      </SummonerBox>
-    </>
+    <SummonerLayout>
+      <InnerLayout>
+        <PreviousTiers previousTiers={previousTiers} />
+        <SummonerBox>
+          <SummonerThumb>
+            <i
+              className="thumb"
+              style={{
+                backgroundImage: `url(${summonerData.profileImageUrl})`,
+              }}
+            ></i>
+            <p className="blind">{summonerData.name}</p>
+          </SummonerThumb>
+          <SummonerInfo>
+            <p className="summoner-name">{summonerData.name}</p>
+            {summonerData?.ladderRank && (
+              <p>
+                레더 랭킹 <span>{summonerData?.ladderRank?.rank}</span>위 (상위
+                {summonerData?.ladderRank?.rankPercentOfTop}%)
+              </p>
+            )}
+          </SummonerInfo>
+        </SummonerBox>
+      </InnerLayout>
+    </SummonerLayout>
   );
 };
 
 export default Summoner;
+
+const SummonerLayout = styled.div`
+  margin-bottom: 10px;
+  padding: 15px 0 10px;
+  border-bottom: 1px solid #d8d8d8;
+`;
 
 const SummonerBox = styled.div`
   display: flex;
