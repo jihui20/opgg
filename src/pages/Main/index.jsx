@@ -9,7 +9,7 @@ import SideRight from 'components/SideRight';
 
 const Main = () => {
   const location = useLocation();
-  const { state: searchValue } = location;
+  const searchValue = location?.state?.keyword;
   const [summonerData, setSummonerData] = useState({});
 
   const getSummonerData = async () => {

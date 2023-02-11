@@ -1,20 +1,32 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchList = ({ value }) => {
+  const navigate = useNavigate();
+
+  const onClickHandler = (e) => {
+    e.preventDefault();
+    navigate(`/summoner/${value.name}`, {
+      state: { keyword: value.name },
+    });
+  };
+
   return (
     <SearchListLayout>
       <ul>
         <li>
-          <span
-            className="user-thumb"
-            style={{
-              backgroundImage: `url(${value.profileImageUrl})`,
-            }}
-          ></span>
-          <p className="user-info">
-            <span>{value.name}</span>
-            <span>Level {value.level}</span>
-          </p>
+          <a href="#!" onClick={(e) => onClickHandler(e)}>
+            <span
+              className="user-thumb"
+              style={{
+                backgroundImage: `url(${value.profileImageUrl})`,
+              }}
+            ></span>
+            <p className="user-info">
+              <span>{value.name}</span>
+              <span>Level {value.level}</span>
+            </p>
+          </a>
         </li>
       </ul>
     </SearchListLayout>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { currentSearchState } from 'store/currentSearch';
 import { recentlySearchState } from 'store/recentlySearch';
@@ -10,10 +10,11 @@ import RecentlySearchList from './RecentlySearchList';
 
 const Search = () => {
   const navigate = useNavigate();
+  const inputRef = useRef();
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState();
-  const setIsSearchState = useSetRecoilState(currentSearchState);
+  const [isSearchState, setIsSearchState] = useRecoilState(currentSearchState);
   const [isRecentlySearchList, setIsRecentlySearchList] =
     useRecoilState(recentlySearchState);
 
@@ -54,7 +55,7 @@ const Search = () => {
     setIsRecentlySearchList([...isRecentlySearchList, trimValue]);
 
     navigate(`/summoner/${trimValue}`, {
-      state: trimValue,
+      state: { keyword: trimValue },
     });
   };
 
@@ -75,16 +76,23 @@ const Search = () => {
     }
   }, [searchValue]);
 
+  useEffect(() => {
+    setIsInputFocus(false);
+    inputRef.current.blur();
+    setSearchValue('');
+  }, [isSearchState]);
+
   return (
     <SearchLayout>
       <Input
         type="text"
         placeholder="소환사명,챔피언…"
+        ref={inputRef}
         value={searchValue}
         onChange={handleSearchValue}
         onKeyPress={handleCheckEnter}
         onFocus={() => setIsInputFocus(true)}
-        onBlur={() => setIsInputFocus(false)}
+        onMouseDown={() => setIsInputFocus(false)}
       />
       <Button type="button" onClick={searchButtonHandler}>
         <span>.GG</span>
