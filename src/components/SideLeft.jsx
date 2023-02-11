@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Rank from './rank/Rank';
+import WinningRate from './winningRate/WinningRate';
 
 const SideLeft = () => {
   const [soloRank, setSoloRank] = useState({
@@ -29,6 +30,7 @@ const SideLeft = () => {
     <SideLeftLayout>
       <Rank data={soloRank} />
       <Rank data={freeRank} />
+      <WinningRate />
     </SideLeftLayout>
   );
 };

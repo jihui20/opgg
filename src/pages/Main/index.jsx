@@ -11,7 +11,6 @@ const Main = () => {
   const location = useLocation();
   const searchValue = location?.state?.keyword;
   const [summonerData, setSummonerData] = useState({});
-
   const getSummonerData = async () => {
     const result = await fetchSummoner(searchValue);
 
