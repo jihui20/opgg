@@ -27,7 +27,7 @@ const WinningRate = () => {
 
   return (
     <WinningRateLayout>
-      <Tab isActive={isActiveTab} getActiveTab={getActiveTab} />
+      <Tab isActiveTab={isActiveTab} getActiveTab={getActiveTab} />
       {isActiveTab === 'CHAMPION' ? (
         <Champion champions={isRateData.champions} />
       ) : (

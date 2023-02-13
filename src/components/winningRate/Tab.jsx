@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-const Tab = ({ isActive, getActiveTab }) => {
+const Tab = ({ isActiveTab, getActiveTab }) => {
   return (
     <TabLayout>
       <ul>
-        <li className={isActive === 'CHAMPION' ? 'active' : ''}>
+        <li className={isActiveTab === 'CHAMPION' ? 'active' : ''}>
           <button type="button" onClick={() => getActiveTab('CHAMPION')}>
             <span>챔피언 승률</span>
           </button>
         </li>
-        <li className={isActive === 'WEEK' ? 'active' : ''}>
+        <li className={isActiveTab === 'WEEK' ? 'active' : ''}>
           <button type="button" onClick={() => getActiveTab('WEEK')}>
             <span>7일간 랭크 승률</span>
           </button>
