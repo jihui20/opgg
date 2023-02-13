@@ -11,14 +11,15 @@ const Main = () => {
   const location = useLocation();
   const searchValue = location?.state?.keyword;
   const [summonerData, setSummonerData] = useState({});
-  const getSummonerData = async () => {
-    const result = await fetchSummoner(searchValue);
-
-    setSummonerData(result);
-  };
 
   useEffect(() => {
     if (searchValue) {
+      async function getSummonerData() {
+        const result = await fetchSummoner(searchValue);
+
+        setSummonerData(result);
+      }
+
       getSummonerData();
     }
   }, [searchValue]);
@@ -30,7 +31,7 @@ const Main = () => {
           <Summoner summonerData={summonerData} />
           <MainSection>
             <InnerLayout>
-              <SideLeft />
+              <SideLeft leaguesData={summonerData.leagues} />
               <SideRight />
             </InnerLayout>
           </MainSection>

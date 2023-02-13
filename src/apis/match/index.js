@@ -7,7 +7,6 @@ const fetchSummonerMatchList = async (trimValue) => {
     .get(`${config.API_URL}/${trimValue}/matches`)
     .then((response) => {
       const { data } = response;
-      console.log('adsdf', response.data);
 
       return data;
     })

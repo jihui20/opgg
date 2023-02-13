@@ -1,30 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Rank from './rank/Rank';
 import WinningRate from './winningRate/WinningRate';
 
-const SideLeft = () => {
-  const [soloRank, setSoloRank] = useState({
-    title: '솔로 랭크',
-    position: '탑',
-    totalGame: 27,
-    rank: 'Platinum 2',
-    lp: 80,
-    win: 28,
-    lose: 30,
-    winningRate: 51,
-  });
+const SideLeft = ({ leaguesData }) => {
+  const [soloRank, setSoloRank] = useState({});
+  const [freeRank, setFreeRank] = useState({});
 
-  const [freeRank, setFreeRank] = useState({
-    title: '자유 5:5 랭크',
-    position: '',
-    totalGame: 0,
-    rank: '',
-    lp: 0,
-    win: 0,
-    lose: 0,
-    winningRate: 0,
-  });
+  useEffect(() => {
+    if (leaguesData?.length > 0) {
+      setSoloRank(
+        leaguesData?.filter((item) => {
+          return item.tierRank?.name === '솔랭';
+        })
+      );
+
+      setFreeRank(
+        leaguesData?.filter((item) => {
+          return item.tierRank?.name === '자유 5:5 랭크';
+        })
+      );
+    }
+  }, []);
 
   return (
     <SideLeftLayout>

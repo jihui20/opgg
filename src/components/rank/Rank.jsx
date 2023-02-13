@@ -2,39 +2,59 @@ import styled, { css } from 'styled-components';
 import IcoUnranked from 'assets/images/ico_unranked.png';
 
 const Rank = ({ data }) => {
-  const { title, position, totalGame, rank, lp, win, lose, winningRate } = data;
+  const getWinningRate = (wins, losses) => {
+    return Math.floor((wins / (wins + losses)) * 100);
+  };
 
   return (
-    <RankBox>
-      <RankThumb rank={rank}>
-        <img src={IcoUnranked} alt="솔로 랭크 이미지" />
-      </RankThumb>
-      <RankInfo>
-        <p>
-          <em>{title}</em>
-        </p>
-        {!rank ? (
-          <p className="unranked">Unranked</p>
-        ) : (
-          <>
-            <p>
-              <span>
-                <strong>{position}</strong> (총 {totalGame} 게임)
-              </span>
-            </p>
-            <p>
-              <strong>{rank}</strong>
-            </p>
-            <p>
-              <span>
-                <strong>{lp} LP</strong> / {win}승 {lose}패
-              </span>
-            </p>
-            <p>승률 {winningRate}%</p>
-          </>
-        )}
-      </RankInfo>
-    </RankBox>
+    data.length > 0 &&
+    data.map((item, index) => {
+      return (
+        item.hasResults && (
+          <RankBox key={index}>
+            <RankThumb rank={item.tierRank?.tier}>
+              <img
+                src={
+                  !item.tierRank?.tier ? IcoUnranked : item.tierRank.imageUrl
+                }
+                alt="랭크 이미지"
+              />
+            </RankThumb>
+            <RankInfo>
+              <p>
+                <em>
+                  {item.tierRank?.name === '솔랭'
+                    ? '솔로 랭크'
+                    : item.tierRank?.name}
+                </em>
+              </p>
+              {!item.tierRank?.tier ? (
+                <p className="unranked">Unranked</p>
+              ) : (
+                <>
+                  <p>
+                    <span>
+                      <strong>{'position'}</strong> (총{' '}
+                      {item.losses + item.wins} 게임)
+                    </span>
+                  </p>
+                  <p>
+                    <strong>{item.tierRank?.tier}</strong>
+                  </p>
+                  <p>
+                    <span>
+                      <strong>{item.tierRank?.lp} LP</strong> / {item.wins}승
+                      {item.losses}패
+                    </span>
+                  </p>
+                  <p>승률 {getWinningRate(item.wins, item.losses)}%</p>
+                </>
+              )}
+            </RankInfo>
+          </RankBox>
+        )
+      );
+    })
   );
 };
 

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const Tab = ({ isActiveTab, getActiveTab = () => {} }) => {
-  console.log('isActiveTab', isActiveTab);
   return (
     <TabLayout>
       <ul>
