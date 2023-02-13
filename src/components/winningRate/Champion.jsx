@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const Champion = ({ champions }) => {
-  console.log('champions', champions);
-
   const getMathRound = (value, standard) => {
     return Math.round((value / standard) * 10) / 10;
   };

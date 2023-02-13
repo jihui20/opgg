@@ -1,24 +1,16 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
-const Tab = () => {
-  // CHAMPION, WEEK
-  const [isActiveTab, setIsActiveTab] = useState('CHAMPION');
-
-  const onClickHandler = (currentTab) => {
-    setIsActiveTab(currentTab);
-  };
-
+const Tab = ({ isActive, getActiveTab }) => {
   return (
     <TabLayout>
       <ul>
-        <li className={isActiveTab === 'CHAMPION' ? 'active' : ''}>
-          <button type="button" onClick={() => onClickHandler('CHAMPION')}>
+        <li className={isActive === 'CHAMPION' ? 'active' : ''}>
+          <button type="button" onClick={() => getActiveTab('CHAMPION')}>
             <span>챔피언 승률</span>
           </button>
         </li>
-        <li className={isActiveTab === 'WEEK' ? 'active' : ''}>
-          <button type="button" onClick={() => onClickHandler('WEEK')}>
+        <li className={isActive === 'WEEK' ? 'active' : ''}>
+          <button type="button" onClick={() => getActiveTab('WEEK')}>
             <span>7일간 랭크 승률</span>
           </button>
         </li>

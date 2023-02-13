@@ -5,10 +5,16 @@ import { currentSearchState } from 'store/currentSearch';
 import fetchSummonerMostInfo from 'apis/winningRate';
 import Tab from './Tab';
 import Champion from './Champion';
+import Week from './Week';
 
 const WinningRate = () => {
   const isSearchState = useRecoilValue(currentSearchState);
   const [isRateData, setIsRateData] = useState({});
+  const [isActiveTab, setIsActiveTab] = useState('CHAMPION');
+
+  const getActiveTab = (target) => {
+    setIsActiveTab(target);
+  };
 
   useEffect(() => {
     async function getSummonerData() {
@@ -21,8 +27,12 @@ const WinningRate = () => {
 
   return (
     <WinningRateLayout>
-      <Tab />
-      <Champion champions={isRateData.champions} />
+      <Tab isActive={isActiveTab} getActiveTab={getActiveTab} />
+      {isActiveTab === 'CHAMPION' ? (
+        <Champion champions={isRateData.champions} />
+      ) : (
+        <Week recentWinRate={isRateData.recentWinRate} />
+      )}
     </WinningRateLayout>
   );
 };
