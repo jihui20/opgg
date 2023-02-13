@@ -1,14 +1,26 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Week = ({ recentWinRate }) => {
+  const [isFilterRateData, setIsFilterRateData] = useState([]);
   const getWinningRate = (wins, losses) => {
     return Math.floor((wins / (wins + losses)) * 100);
   };
 
+  useEffect(() => {
+    if (recentWinRate?.length > 0) {
+      const result = recentWinRate.sort(function (a, b) {
+        return b.wins + b.losses - (a.wins + a.losses);
+      });
+
+      setIsFilterRateData(result);
+    }
+  }, [recentWinRate]);
+
   return (
     <ChampionList>
-      {recentWinRate?.length > 0 ? (
-        recentWinRate.map((item, index) => {
+      {isFilterRateData?.length > 0 ? (
+        isFilterRateData.map((item, index) => {
           return (
             <li key={`${item.name}-${index}`}>
               <SummonerThumb>

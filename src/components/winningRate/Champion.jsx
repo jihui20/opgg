@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Champion = ({ champions }) => {
+  const [isFilterRateData, setIsFilterRateData] = useState([]);
+
   const getMathRound = (value, standard) => {
     return Math.round((value / standard) * 10) / 10;
   };
@@ -25,10 +28,20 @@ const Champion = ({ champions }) => {
     return Math.floor((wins / games) * 100);
   };
 
+  useEffect(() => {
+    if (champions?.length > 0) {
+      const result = champions.sort(function (a, b) {
+        return b.games - a.games;
+      });
+
+      setIsFilterRateData(result);
+    }
+  }, [champions]);
+
   return (
     <ChampionList>
-      {champions?.length > 0 ? (
-        champions.map((item, index) => {
+      {isFilterRateData?.length > 0 ? (
+        isFilterRateData.map((item, index) => {
           return (
             <li key={`${item.name}-${index}`}>
               <SummonerThumb>
