@@ -1,9 +1,9 @@
 import axios from 'axios';
 import * as config from '../../common/config';
 
-const fetchSummonerMostInfo = async (trimValue) => {
+const fetchSummonerMostInfo = async (summonerName) => {
   const apiData = await axios
-    .get(`${config.API_URL}/${trimValue}/mostInfo`)
+    .get(`${config.API_URL}/${summonerName}/mostInfo`)
     .then((response) => {
       const { data } = response;
 

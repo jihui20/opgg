@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Summary = ({ data }) => {
+const Summary = ({ data = {} }) => {
   const { assists, deaths, kills, losses, wins } = data;
   const [totalGames, setTotalGames] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getMathRound = (value, standard) => {
     return Math.round((value / standard) * 10) / 10;
@@ -30,29 +31,32 @@ const Summary = ({ data }) => {
   };
 
   useEffect(() => {
-    if (losses && wins) {
+    if (data && losses && wins) {
       setTotalGames(losses + wins);
+      setIsLoading(false);
     }
-  }, [losses, wins]);
+  }, [data, losses, wins]);
 
   return (
-    <MatchSummaryLayout>
-      <p className="wins-losses">
-        {totalGames && totalGames}전 {wins}승 {losses}패
-      </p>
-      <div>
-        <ChartBox className="chart">차트</ChartBox>
-        <InfoBox>
-          <p>
-            <span>{getAverage(kills, assists, deaths, totalGames)}</span>
-          </p>
-          <p>
-            <strong>{getRating(kills, assists, deaths, totalGames)}</strong>:1 (
-            {getWinningRate(wins, totalGames)}%)
-          </p>
-        </InfoBox>
-      </div>
-    </MatchSummaryLayout>
+    !isLoading && (
+      <MatchSummaryLayout>
+        <p className="wins-losses">
+          {totalGames && totalGames}전 {wins}승 {losses}패
+        </p>
+        <div>
+          <ChartBox className="chart">차트</ChartBox>
+          <InfoBox>
+            <p>
+              <span>{getAverage(kills, assists, deaths, totalGames)}</span>
+            </p>
+            <p>
+              <strong>{getRating(kills, assists, deaths, totalGames)}</strong>:1
+              ({getWinningRate(wins, totalGames)}%)
+            </p>
+          </InfoBox>
+        </div>
+      </MatchSummaryLayout>
+    )
   );
 };
 
@@ -61,8 +65,8 @@ export default Summary;
 const MatchSummaryLayout = styled.div`
   flex: 0 0 auto;
   width: 276px;
+  height: 100%;
   padding: 16px 24px 23px;
-  border: 1px solid orange;
   box-sizing: border-box;
 
   .wins-losses {
@@ -74,7 +78,6 @@ const MatchSummaryLayout = styled.div`
       justify-content: flex-start;
       align-items: center;
       margin-top: 4px;
-      border: 1px solid red;
       box-sizing: border-box;
     }
   }

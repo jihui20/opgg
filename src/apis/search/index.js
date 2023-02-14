@@ -1,9 +1,9 @@
 import axios from 'axios';
 import * as config from '../../common/config';
 
-const fetchSummoner = async (trimValue) => {
+const fetchSummoner = async (summonerName) => {
   const apiData = await axios
-    .get(`${config.API_URL}/${trimValue}`)
+    .get(`${config.API_URL}/${summonerName}`)
     .then((response) => {
       const { summoner } = response.data;
 

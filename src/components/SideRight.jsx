@@ -9,8 +9,8 @@ import List from './match/list/List';
 const SideRight = () => {
   const isSearchState = useRecoilValue(currentSearchState);
   const [isMatchListData, setIsMatchListData] = useState({});
-  // ALL, SOLO, FREE
-  const [isActiveTab, setIsActiveTab] = useState('ALL');
+  // total, soloranked, flexranked
+  const [isActiveTab, setIsActiveTab] = useState('total');
 
   const getActiveTab = (target) => {
     setIsActiveTab(target);
@@ -18,12 +18,12 @@ const SideRight = () => {
 
   useEffect(() => {
     async function getSummonerMathListData() {
-      const result = await fetchSummonerMatchList(isSearchState);
+      const result = await fetchSummonerMatchList(isSearchState, isActiveTab);
 
       setIsMatchListData(result);
     }
     getSummonerMathListData();
-  }, [isSearchState]);
+  }, [isSearchState, isActiveTab]);
 
   return (
     <SideRightLayout>
@@ -37,5 +37,4 @@ export default SideRight;
 
 const SideRightLayout = styled.div`
   flex: 0 0 690px;
-  background-color: skyblue;
 `;

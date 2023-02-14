@@ -1,10 +1,9 @@
 import axios from 'axios';
 import * as config from '../../common/config';
 
-//summoner/{summonerName}/matches
-const fetchSummonerMatchList = async (trimValue) => {
+const fetchSummonerMatchList = async (summonerName, gameType) => {
   const apiData = await axios
-    .get(`${config.API_URL}/${trimValue}/matches`)
+    .get(`${config.API_URL}/${summonerName}/matches?game_type=${gameType}`)
     .then((response) => {
       const { data } = response;
 

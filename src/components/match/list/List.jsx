@@ -21,5 +21,6 @@ const MatchListLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid red;
+  height: 158px;
+  border: 1px solid #cdd2d2;
 `;

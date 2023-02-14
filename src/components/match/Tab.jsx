@@ -4,18 +4,18 @@ const Tab = ({ isActiveTab, getActiveTab = () => {} }) => {
   return (
     <TabLayout>
       <ul>
-        <li className={isActiveTab === 'ALL' ? 'active' : ''}>
-          <button type="button" onClick={() => getActiveTab('ALL')}>
+        <li className={isActiveTab === 'total' ? 'active' : ''}>
+          <button type="button" onClick={() => getActiveTab('total')}>
             <span>전체</span>
           </button>
         </li>
-        <li className={isActiveTab === 'SOLO' ? 'active' : ''}>
-          <button type="button" onClick={() => getActiveTab('SOLO')}>
+        <li className={isActiveTab === 'soloranked' ? 'active' : ''}>
+          <button type="button" onClick={() => getActiveTab('soloranked')}>
             <span>솔로게임</span>
           </button>
         </li>
-        <li className={isActiveTab === 'FREE' ? 'active' : ''}>
-          <button type="button" onClick={() => getActiveTab('FREE')}>
+        <li className={isActiveTab === 'flexranked' ? 'active' : ''}>
+          <button type="button" onClick={() => getActiveTab('flexranked')}>
             <span>자유랭크</span>
           </button>
         </li>
