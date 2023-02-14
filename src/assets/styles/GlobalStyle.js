@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
 		font: normal normal 10px/1.2 'SpoqaHanSansNeo', sans-serif;
 	}
 	
+	body{
+		min-width: 1024px;
+	}
+
 	html,
 	body,
 	div,

@@ -7,7 +7,7 @@ const Summoner = ({ summonerData }) => {
 
   return (
     <SummonerLayout>
-      <InnerLayout>
+      <InnerLayout padding={'0 20px'}>
         <PreviousTiers previousTiers={previousTiers} />
         <SummonerBox>
           <SummonerThumb>
@@ -40,6 +40,7 @@ const SummonerLayout = styled.div`
   margin-bottom: 10px;
   padding: 15px 0 10px;
   border-bottom: 1px solid #d8d8d8;
+  box-sizing: border-box;
 `;
 
 const SummonerBox = styled.div`

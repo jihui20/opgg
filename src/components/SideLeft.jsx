@@ -36,4 +36,5 @@ export default SideLeft;
 
 const SideLeftLayout = styled.div`
   flex: 0 0 300px;
+  margin-right: 10px;
 `;

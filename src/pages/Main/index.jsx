@@ -26,7 +26,7 @@ const Main = () => {
 
   return (
     <Layout>
-      {Object.keys(summonerData).length !== 0 ? (
+      {Object.keys(summonerData).length > 0 ? (
         <>
           <Summoner summonerData={summonerData} />
           <MainSection>
@@ -37,7 +37,7 @@ const Main = () => {
           </MainSection>
         </>
       ) : (
-        <p>검색한 소환사가 없습니다.</p>
+        <NoSummoner>검색한 소환사가 없습니다.</NoSummoner>
       )}
     </Layout>
   );
@@ -53,7 +53,14 @@ const InnerLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  max-width: 1024px;
+  max-width: 983px;
   width: 100%;
   margin: 0 auto;
+`;
+
+const NoSummoner = styled.p`
+  padding: 60px 0;
+  font-size: 25px;
+  color: #888;
+  text-align: center;
 `;

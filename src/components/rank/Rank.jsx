@@ -1,11 +1,8 @@
 import styled, { css } from 'styled-components';
+import { getWinningRate } from 'common/calculation';
 import IcoUnranked from 'assets/images/ico_unranked.png';
 
 const Rank = ({ data }) => {
-  const getWinningRate = (wins, losses) => {
-    return Math.floor((wins / (wins + losses)) * 100);
-  };
-
   return (
     data.length > 0 &&
     data.map((item, index) => {
@@ -47,7 +44,9 @@ const Rank = ({ data }) => {
                       {item.losses}패
                     </span>
                   </p>
-                  <p>승률 {getWinningRate(item.wins, item.losses)}%</p>
+                  <p>
+                    승률 {getWinningRate(item.wins, item.wins + item.losses)}%
+                  </p>
                 </>
               )}
             </RankInfo>

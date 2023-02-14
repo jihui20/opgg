@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { getWinningRate } from 'common/calculation';
 import IcoTop from 'assets/images/ico_position_top.png';
 import IcoMiddle from 'assets/images/ico_position_middle.png';
 import IcoBottom from 'assets/images/ico_position_bottom.png';
@@ -21,7 +22,8 @@ const Positions = ({ data }) => {
                 <p>
                   <strong>70%</strong>
                   <span>
-                    승률 <strong>33</strong>%
+                    승률{' '}
+                    <strong>{getWinningRate(item.wins, item.games)}</strong>%
                   </span>
                 </p>
               </PositionInfo>

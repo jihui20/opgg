@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getWinningRate } from 'common/calculation';
 
 const Week = ({ recentWinRate }) => {
   const [isFilterRateData, setIsFilterRateData] = useState([]);
-  const getWinningRate = (wins, losses) => {
-    return Math.floor((wins / (wins + losses)) * 100);
-  };
 
   useEffect(() => {
     if (recentWinRate?.length > 0) {
@@ -28,12 +26,14 @@ const Week = ({ recentWinRate }) => {
                 <p>{item.name}</p>
               </SummonerThumb>
               <SummonerInfo>
-                <p>{getWinningRate(item.wins, item.losses)}%</p>
+                <p>{getWinningRate(item.wins, item.wins + item.losses)}%</p>
                 <div className="percentage-progress">
                   <p
                     className="wins"
                     style={{
-                      width: getWinningRate(item.wins, item.losses) + '%',
+                      width:
+                        getWinningRate(item.wins, item.wins + item.losses) +
+                        '%',
                     }}
                   >
                     <span>{item.wins}승</span>
@@ -41,7 +41,10 @@ const Week = ({ recentWinRate }) => {
                   <p
                     className="losses"
                     style={{
-                      width: 100 - getWinningRate(item.wins, item.losses) + '%',
+                      width:
+                        100 -
+                        getWinningRate(item.wins, item.wins + item.losses) +
+                        '%',
                     }}
                   >
                     <span>{item.losses}패</span>
@@ -52,7 +55,7 @@ const Week = ({ recentWinRate }) => {
           );
         })
       ) : (
-        <p>없음</p>
+        <p className="no-match">기록된 전적이 없습니다.</p>
       )}
     </ChampionList>
   );
@@ -72,6 +75,13 @@ const ChampionList = styled.ul`
     + li {
       border-top: 1px solid #cdd2d2;
     }
+  }
+
+  p.no-match {
+    padding: 20px 0;
+    font-size: 15px;
+    color: #9aa4af;
+    text-align: center;
   }
 `;
 

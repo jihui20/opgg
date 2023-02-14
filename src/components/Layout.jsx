@@ -8,6 +8,7 @@ const Layout = ({ children }) => {
 const LayoutStyle = styled.main`
   width: 100%;
   min-height: 60rem;
+  padding-bottom: 100px;
   background-color: #eaeaea;
 `;
 export default Layout;

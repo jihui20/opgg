@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Kda from 'components/common/Kda';
 import IcoNoChampion from 'assets/images/ico_no_champion.png';
 
 const Champions = ({ data }) => {
@@ -36,8 +37,16 @@ const Champions = ({ data }) => {
                 <p className="summoner-name">{item.name}</p>
                 <p>
                   <strong>70%</strong>
-                  <span>(7승 3패)</span>
-                  <strong>13.01 평점</strong>
+                  <span>
+                    ({item.wins}승 {item.losses}패)
+                  </span>
+                  <Kda
+                    kills={item.kills}
+                    assists={item.assists}
+                    deaths={item.deaths}
+                    games={item.games}
+                    useText={' 평점'}
+                  />
                 </p>
               </InfoBox>
             </div>
@@ -111,16 +120,16 @@ const InfoBox = styled.div`
     &.no-data {
       color: #999;
     }
-  }
 
-  span {
-    &::after {
-      content: '';
-      display: inline-block;
-      width: 1px;
-      height: 11px;
-      margin: 0 6px;
-      background-color: #cdd2d2;
+    > span {
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 11px;
+        margin: 0 6px;
+        background-color: #cdd2d2;
+      }
     }
   }
 `;

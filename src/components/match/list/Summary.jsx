@@ -1,34 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getAverage } from 'common/calculation';
+import Kda from 'components/common/Kda';
+import WinningRate from 'components/common/WinningRate';
 
 const Summary = ({ data = {} }) => {
   const { assists, deaths, kills, losses, wins } = data;
   const [totalGames, setTotalGames] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
-  const getMathRound = (value, standard) => {
-    return Math.round((value / standard) * 10) / 10;
-  };
-
-  const getRating = (kills, assists, deaths, games) => {
-    const killsAverage = getMathRound(kills, games);
-    const assistsAverage = getMathRound(assists, games);
-    const deathsAverage = getMathRound(deaths, games);
-
-    return (killsAverage + assistsAverage / deathsAverage).toFixed(2);
-  };
-
-  const getAverage = (kills, assists, deaths, games) => {
-    const killsAverage = getMathRound(kills, games);
-    const assistsAverage = getMathRound(assists, games);
-    const deathsAverage = getMathRound(deaths, games);
-
-    return `${killsAverage} / ${assistsAverage} / ${deathsAverage}`;
-  };
-
-  const getWinningRate = (wins, games) => {
-    return Math.floor((wins / games) * 100);
-  };
 
   useEffect(() => {
     if (data && losses && wins) {
@@ -50,8 +29,13 @@ const Summary = ({ data = {} }) => {
               <span>{getAverage(kills, assists, deaths, totalGames)}</span>
             </p>
             <p>
-              <strong>{getRating(kills, assists, deaths, totalGames)}</strong>:1
-              ({getWinningRate(wins, totalGames)}%)
+              <Kda
+                kills={kills}
+                assists={assists}
+                deaths={deaths}
+                games={totalGames}
+              />{' '}
+              (<WinningRate wins={wins} games={totalGames} />)
             </p>
           </InfoBox>
         </div>

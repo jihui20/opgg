@@ -4,7 +4,7 @@ import Positions from './Positions';
 import Summary from './Summary';
 
 const List = ({ isMatchListData }) => {
-  const { games, champions, positions, summary } = isMatchListData;
+  const { champions, positions, summary } = isMatchListData;
 
   return (
     <MatchListLayout>

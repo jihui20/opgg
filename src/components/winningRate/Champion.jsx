@@ -1,32 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getAverage } from 'common/calculation';
+import Kda from 'components/common/Kda';
+import WinningRate from 'components/common/WinningRate';
 
 const Champion = ({ champions }) => {
   const [isFilterRateData, setIsFilterRateData] = useState([]);
-
-  const getMathRound = (value, standard) => {
-    return Math.round((value / standard) * 10) / 10;
-  };
-
-  const getRating = (kills, assists, deaths, games) => {
-    const killsAverage = getMathRound(kills, games);
-    const assistsAverage = getMathRound(assists, games);
-    const deathsAverage = getMathRound(deaths, games);
-
-    return (killsAverage + assistsAverage / deathsAverage).toFixed(2);
-  };
-
-  const getAverage = (kills, assists, deaths, games) => {
-    const killsAverage = getMathRound(kills, games);
-    const assistsAverage = getMathRound(assists, games);
-    const deathsAverage = getMathRound(deaths, games);
-
-    return `${killsAverage} / ${assistsAverage} / ${deathsAverage}`;
-  };
-
-  const getWinningRate = (wins, games) => {
-    return Math.floor((wins / games) * 100);
-  };
 
   useEffect(() => {
     if (champions?.length > 0) {
@@ -53,8 +32,13 @@ const Champion = ({ champions }) => {
               </SummonerThumb>
               <SummonerInfo>
                 <p>
-                  {getRating(item.kills, item.assists, item.deaths, item.games)}
-                  :1 평점
+                  <Kda
+                    kills={item.kills}
+                    assists={item.assists}
+                    deaths={item.deaths}
+                    games={item.games}
+                    useText={':1 평점'}
+                  />
                   <span>
                     {getAverage(
                       item.kills,
@@ -65,7 +49,7 @@ const Champion = ({ champions }) => {
                   </span>
                 </p>
                 <p>
-                  {getWinningRate(item.wins, item.games)}%
+                  <WinningRate wins={item.wins} games={item.games} />
                   <span>{item.games}게임</span>
                 </p>
               </SummonerInfo>
@@ -73,7 +57,7 @@ const Champion = ({ champions }) => {
           );
         })
       ) : (
-        <p>없음</p>
+        <p className="no-match">기록된 전적이 없습니다.</p>
       )}
     </ChampionList>
   );
@@ -93,6 +77,13 @@ const ChampionList = styled.ul`
     + li {
       border-top: 1px solid #cdd2d2;
     }
+  }
+
+  p.no-match {
+    padding: 20px 0;
+    font-size: 15px;
+    color: #9aa4af;
+    text-align: center;
   }
 `;
 

@@ -34,6 +34,8 @@ const TabLayout = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 0 16px;
+    border: 1px solid #cdd2d2;
+    border-bottom: none;
 
     li {
       flex: 0 0 auto;
