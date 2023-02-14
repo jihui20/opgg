@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { currentSearchState } from 'store/currentSearch';
 import fetchSummonerMatchList from 'apis/match';
 import Tab from './match/Tab';
+import List from './match/list/List';
 
 const SideRight = () => {
   const isSearchState = useRecoilValue(currentSearchState);
@@ -27,6 +28,7 @@ const SideRight = () => {
   return (
     <SideRightLayout>
       <Tab isActiveTab={isActiveTab} getActiveTab={getActiveTab} />
+      <List isMatchListData={isMatchListData} />
     </SideRightLayout>
   );
 };
