@@ -22,7 +22,7 @@ const SideRight = () => {
       setIsMatchListData(result);
     }
     getSummonerMathListData();
-  }, []);
+  }, [isSearchState]);
 
   return (
     <SideRightLayout>

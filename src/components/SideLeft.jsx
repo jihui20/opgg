@@ -21,7 +21,7 @@ const SideLeft = ({ leaguesData }) => {
         })
       );
     }
-  }, []);
+  }, [leaguesData]);
 
   return (
     <SideLeftLayout>

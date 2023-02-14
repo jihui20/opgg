@@ -23,7 +23,7 @@ const WinningRate = () => {
       setIsRateData(result);
     }
     getSummonerData();
-  }, []);
+  }, [isSearchState]);
 
   return (
     <WinningRateLayout>
